@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.scwl.hzzxgd.mapper.InitializationInformationMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.scwl.hzzxgd.entity.InitializationInformationEntity" id="initializationInformation">
+        <result property="id" column="id"/>
+        <result property="pId" column="p_id"/>
+        <result property="menuUrl" column="menu_url"/>
+        <result property="menuName" column="menu_name"/>
+        <result property="icon" column="icon"/>
+        <result property="isSingle" column="is_single"/>
+        <result property="tip" column="tip"/>
+        <result property="role" column="role"/>
+        <result property="isActive" column="is_active"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+
+    <sql id="initializationInformationList">
+      id, p_id, menu_url, menu_name, icon, is_single, tip, role, is_active,create_time
+    </sql>
+
+
+</mapper>

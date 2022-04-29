@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.scwl.hzzxgd.mapper.OperationAssignmentsMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.scwl.hzzxgd.entity.OperationAssignmentsEntity" id="operationAssignments">
+        <result property="operationId" column="operation_id"/>
+        <result property="operatorId" column="operator_id"/>
+        <result property="corpid" column="corpid"/>
+        <result property="allocateQty" column="allocate_qty"/>
+        <result property="createId" column="create_id"/>
+        <result property="createTime" column="create_time"/>
+        <result property="modificationTime" column="modification_time"/>
+        <result property="modificationId" column="modification_id"/>
+        <result property="isActive" column="is_active"/>
+    </resultMap>
+
+    <sql id="operationAssignmentsList">
+      operation_id, operator_id, corpid, allocate_qty, create_id,create_time, modification_time, modification_id,is_active
+    </sql>
+
+
+
+</mapper>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.scwl.hzzxgd.mapper.ProcessRouteSubMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.scwl.hzzxgd.entity.ProcessRouteSubEntity" id="processRouteSub">
+        <result property="id" column="id"/>
+        <result property="corpid" column="corpid"/>
+        <result property="routeId" column="route_id"/>
+        <result property="sequenceNo" column="sequence_no"/>
+        <result property="workCenterId" column="work_center_id"/>
+        <result property="maker" column="maker"/>
+        <result property="salaryMethod" column="salary_method"/>
+        <result property="wage" column="wage"/>
+        <result property="standardHours" column="standard_hours"/>
+        <result property="operatorIds" column="operator_ids"/>
+        <result property="remark" column="remark"/>
+        <result property="attachment" column="attachment"/>
+        <result property="picture" column="picture"/>
+        <result property="lossRate" column="loss_rate"/>
+        <result property="createId" column="create_id"/>
+        <result property="createTime" column="create_time"/>
+        <result property="modificationTime" column="modification_time"/>
+        <result property="modificationId" column="modification_id"/>
+        <result property="isActive" column="is_active"/>
+    </resultMap>
+
+    <sql id="processRouteSubList">
+      id, corpid,route_id, sequence_no,work_center_id, maker ,salary_method, wage,standard_hours, operator_ids ,remark, attachment,picture, loss_rate, create_id,create_time, modification_time, modification_id,is_active
+    </sql>
+
+    <select id="selectByRouteId" resultMap="processRouteSub">
+      select
+      c.name as workCenterName,
+      s.id,
+      s.corpid,
+      s.sequence_no,
+      s.work_center_id,
+      s.maker,
+      s.salary_method,
+      s.wage,
+      s.standard_hours,
+      s.operator_ids,
+      s.remark,
+      s.attachment,
+      s.picture,
+      s.loss_rate,
+      s.create_id,
+      s.modification_time,
+      s.create_time,
+      s.modification_id,
+      s.is_active
+      from process_route_sub s
+      left join process_center c
+      on s.work_center_id = c.id
+      where s.route_id = #{id}  and s.is_active = '1'
+    </select>
+
+</mapper>

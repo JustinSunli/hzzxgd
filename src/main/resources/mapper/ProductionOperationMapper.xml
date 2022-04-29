@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.scwl.hzzxgd.mapper.ProductionOperationMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.scwl.hzzxgd.entity.ProductionOperationEntity" id="productionOperation">
+        <result property="id" column="id"/>
+        <result property="corpid" column="corpid"/>
+        <result property="productionOrderId" column="production_order_id"/>
+        <result property="dispatchQty" column="dispatch_qty"/>
+        <result property="sequenceNo" column="sequence_no"/>
+        <result property="workCenterId" column="work_center_id"/>
+        <result property="maker" column="maker"/>
+        <result property="salaryMethod" column="salary_method"/>
+        <result property="wage" column="wage"/>
+        <result property="standardHours" column="standard_hours"/>
+        <result property="remark" column="remark"/>
+        <result property="createId" column="create_id"/>
+        <result property="createTime" column="create_time"/>
+        <result property="modificationTime" column="modification_time"/>
+        <result property="modificationId" column="modification_id"/>
+        <result property="isActive" column="is_active"/>
+    </resultMap>
+
+    <sql id="productionOperationList">
+      id, corpid, production_order_id, dispatch_qty, sequence_no,work_center_id, maker ,salary_method, wage,standard_hours, remark, create_id,create_time, modification_time, modification_id,is_active
+    </sql>
+
+    <select id="selectByOrderId" resultMap="productionOperation">
+      select
+      o.id,
+      o.corpid,
+      o.production_order_id,
+      o.dispatch_qty,
+      o.sequence_no,
+      o.work_center_id,
+      o.maker,
+      o.salary_method,
+      o.wage,
+      o.standard_hours,
+      o.remark,
+      o.create_id,
+      o.create_time,
+      o.modification_time,
+      o.modification_id,
+      o.is_active,
+      c.name as workCenterName
+      from production_operation o
+      left join process_center c
+      on o.work_center_id = c.id
+      where o.production_order_id = #{id}
+    </select>
+
+</mapper>

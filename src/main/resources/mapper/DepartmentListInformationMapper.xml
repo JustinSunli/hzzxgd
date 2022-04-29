@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.scwl.hzzxgd.mapper.DepartmentListInformationMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.scwl.hzzxgd.entity.DepartmentListInformationEntity" id="departmentListInformation">
+        <result property="id" column="id"/>
+        <result property="departmentListId" column="department_list_id"/>
+        <result property="corpid" column="corpid"/>
+        <result property="parentid" column="parentid"/>
+        <result property="displayName" column="display_name"/>
+        <result property="departmentLeader" column="department_leader"/>
+        <result property="departmentOrder" column="department_order"/>
+        <result property="createTime" column="create_time"/>
+        <result property="isActive" column="is_active"/>
+    </resultMap>
+
+    <sql id="departmentListInformationList">
+      id, department_list_id,corpid, parentid, display_name, department_leader, department_order, create_time,is_active
+    </sql>
+
+    <select id="getDepartmentIds" resultType="java.lang.Integer" parameterType="java.lang.String">
+      SELECT department_list_id
+      FROM department_list_information
+      Where corpid = #{corpid} and is_active = '1'
+    </select>
+
+</mapper>

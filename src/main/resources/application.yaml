@@ -1,0 +1,6 @@
+jwt:
+  header: "Authorization" #token返回头部
+  tokenPrefix: "Yzy " #token前缀
+  secret: "scwlhzzxgd66588" #密钥
+  expireTime: 120 #token有效时间 (分钟) 建议一小时以上
+

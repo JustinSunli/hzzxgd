@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.scwl.hzzxgd.mapper.RouteOperatorsMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.scwl.hzzxgd.entity.RouteOperatorsEntity" id="routeOperators">
+        <result property="id" column="id"/>
+        <result property="corpid" column="corpid"/>
+        <result property="operationId" column="operation_id"/>
+        <result property="operatorId" column="operator_id"/>
+        <result property="operatorName" column="operator_name"/>
+        <result property="createId" column="create_id"/>
+        <result property="createTime" column="create_time"/>
+        <result property="modificationTime" column="modification_time"/>
+        <result property="modificationId" column="modification_id"/>
+        <result property="isActive" column="is_active"/>
+    </resultMap>
+
+    <sql id="routeOperatorsList">
+      id, corpid,operation_id, operator_id, create_id,create_time, modification_time, modification_id,is_active
+    </sql>
+
+    <select id="getList" resultMap="routeOperators">
+        select
+        <include refid="routeOperatorsList" />
+        from route_operators
+        where corpid = #{corpid} and is_active = '1'
+        limit #{startIndex},#{pageSize}
+    </select>
+
+
+</mapper>

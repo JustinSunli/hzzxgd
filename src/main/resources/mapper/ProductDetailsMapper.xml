@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.scwl.hzzxgd.mapper.ProductDetailsMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.scwl.hzzxgd.entity.ProductDetailsEntity" id="productDetails">
+        <result property="id" column="id"/>
+        <result property="corpid" column="corpid"/>
+        <result property="code" column="code"/>
+        <result property="name" column="name"/>
+        <result property="spec" column="spec"/>
+        <result property="unitId" column="unit_id"/>
+        <result property="size" column="size"/>
+        <result property="color" column="color"/>
+        <result property="attachment" column="attachment"/>
+        <result property="picture" column="picture"/>
+        <result property="remark" column="remark"/>
+        <result property="createId" column="create_id"/>
+        <result property="createTime" column="create_time"/>
+        <result property="modificationTime" column="modification_time"/>
+        <result property="modificationId" column="modification_id"/>
+        <result property="isActive" column="is_active"/>
+    </resultMap>
+
+    <sql id="productDetailsList">
+      id, corpid,code, name, spec, unit_id, size, color,attachment, picture, remark, create_id,create_time, modification_time, modification_id,is_active
+    </sql>
+
+    <select id="getList" resultMap="productDetails">
+        select
+        d.id,
+        d.corpid,
+        d.code,
+        d.name,
+        d.spec,
+        d.unit_id,
+        d.size,
+        d.color,
+        d.attachment,
+        d.picture,
+        d.remark,
+        d.create_id,
+        d.create_time,
+        d.modification_time,
+        d.modification_id,
+        d.is_active,
+        u.name as unitName
+        from product_details d
+        left join product_unit u
+        on d.unit_id = u.id
+        where d.corpid = #{corpid}  and d.is_active = '1'
+        limit #{startIndex},#{pageSize}
+    </select>
+
+    <select id="getByid" resultMap="productDetails">
+        select
+        d.id,
+        d.corpid,
+        d.code,
+        d.name,
+        d.spec,
+        d.unit_id,
+        d.size,
+        d.color,
+        d.attachment,
+        d.picture,
+        d.remark,
+        d.create_id,
+        d.create_time,
+        d.modification_time,
+        d.modification_id,
+        d.is_active,
+        u.name as unitName
+        from product_details d
+        left join product_unit u
+        on d.unit_id = u.id
+        where d.id = #{id}  and d.is_active = '1'
+    </select>
+
+</mapper>

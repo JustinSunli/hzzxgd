@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.scwl.hzzxgd.mapper.ProductionOrderMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.scwl.hzzxgd.entity.ProductionOrderEntity" id="productionOrder">
+        <result property="id" column="id"/>
+        <result property="corpid" column="corpid"/>
+        <result property="seqNo" column="seq_no"/>
+        <result property="productId" column="product_id"/>
+        <result property="productCode" column="product_code"/>
+        <result property="productName" column="product_name"/>
+        <result property="productSpec" column="product_spec"/>
+        <result property="productUnit" column="product_unit"/>
+        <result property="productPicture" column="product_picture"/>
+        <result property="routeId" column="route_id"/>
+        <result property="dispatchQty" column="dispatch_qty"/>
+        <result property="completedQty" column="completed_qty"/>
+        <result property="scheduleStartTime" column="schedule_start_time"/>
+        <result property="scheduleEndTime" column="schedule_end_time"/>
+        <result property="productionStartTime" column="production_start_time"/>
+        <result property="productionEndTime" column="production_end_time"/>
+        <result property="managerId" column="manager_id"/>
+        <result property="productionStatus" column="production_status"/>
+        <result property="remark" column="remark"/>
+        <result property="createId" column="create_id"/>
+        <result property="createTime" column="create_time"/>
+        <result property="modificationTime" column="modification_time"/>
+        <result property="modificationId" column="modification_id"/>
+        <result property="isActive" column="is_active"/>
+    </resultMap>
+
+    <sql id="productionOrderList">
+      id, corpid, seq_no, product_id,  product_code,  product_name,  product_spec,  product_unit,  product_picture,
+        route_id,  dispatch_qty,  completed_qty,  schedule_start_time,  schedule_end_time,  production_start_time,  production_end_time,  manager_id,  production_status, remark,
+       create_id,create_time, modification_time, modification_id,is_active
+    </sql>
+
+    <select id="getList" resultMap="productionOrder">
+        select
+        <include refid="productionOrderList" />
+        from production_order
+        where corpid = #{corpid} and is_active = '1'
+        limit #{startIndex},#{pageSize}
+    </select>
+
+
+
+</mapper>

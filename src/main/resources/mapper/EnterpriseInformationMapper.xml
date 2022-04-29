@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.scwl.hzzxgd.mapper.EnterpriseInformationMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.scwl.hzzxgd.entity.EnterpriseInformationEntity" id="enterpriseInformation">
+        <result property="corpid" column="corpid"/>
+        <result property="corpType" column="corp_type"/>
+        <result property="corpName" column="corp_name"/>
+        <result property="corpFullName" column="corp_full_name"/>
+        <result property="subjectType" column="subject_type"/>
+        <result property="corpSubIndustry" column="corp_sub_industry"/>
+        <result property="corpScale" column="corp_scale"/>
+        <result property="corpUserMax" column="corp_user_max"/>
+        <result property="verifiedEndTime" column="verified_end_time"/>
+        <result property="corpWxqrcode" column="corp_wxqrcode"/>
+        <result property="corpSquareLogoUrl" column="corp_square_logo_url"/>
+        <result property="corpRoundLogoUrl" column="corp_round_logo_url"/>
+        <result property="corpIndustry" column="corp_industry"/>
+        <result property="location" column="location"/>
+        <result property="userName" column="user_name"/>
+        <result property="userid" column="userid"/>
+        <result property="avatar" column="avatar"/>
+        <result property="openUserid" column="open_userid"/>
+        <result property="permanentCode" column="permanent_code"/>
+        <result property="createTime" column="create_time"/>
+        <result property="isActive" column="is_active"/>
+    </resultMap>
+
+    <sql id="enterpriseInformationList">
+      corpid, corp_type, corp_name, corp_full_name, subject_type, corp_sub_industry, corp_scale,
+      corp_user_max, verified_end_time, corp_wxqrcode,corp_square_logo_url,corp_round_logo_url,corp_industry,
+      location,user_name,userid,avatar,open_userid,permanent_code,create_time,is_active
+    </sql>
+
+    <select id="selectByCorpid" resultMap="enterpriseInformation" parameterType="java.lang.String">
+        SELECT
+        <include refid="enterpriseInformationList" />
+        FROM enterprise_information
+        WHERE
+        corpid = #{corpid} and is_active = '1'
+    </select>
+
+
+</mapper>
