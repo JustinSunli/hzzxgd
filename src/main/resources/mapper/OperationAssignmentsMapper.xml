@@ -9,6 +9,7 @@
         <result property="operatorId" column="operator_id"/>
         <result property="corpid" column="corpid"/>
         <result property="allocateQty" column="allocate_qty"/>
+        <result property="finishedQty" column="finished_qty"/>
         <result property="createId" column="create_id"/>
         <result property="createTime" column="create_time"/>
         <result property="modificationTime" column="modification_time"/>

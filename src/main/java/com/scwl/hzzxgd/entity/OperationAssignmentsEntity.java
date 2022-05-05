@@ -33,6 +33,10 @@ public class OperationAssignmentsEntity implements Serializable {
      */
     private Double allocateQty;
     /**
+     * 该操作员已完工数量
+     */
+    private int finishedQty;
+    /**
      * 创建人
      */
     private String createId;
