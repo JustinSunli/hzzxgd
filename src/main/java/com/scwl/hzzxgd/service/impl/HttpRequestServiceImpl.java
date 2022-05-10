@@ -250,7 +250,7 @@ public class HttpRequestServiceImpl implements HttpRequestService {
                 String openUserid = jsonObj.getString("open_userid");
                 MemberInformationEntity userInfoByOpenUserId = memberInformationService.getUserInfoByOpenUserId(corpid, openUserid);
                 String userid = userInfoByOpenUserId.getId();
-                /* 新建token 存储open_userid 和 corpid */
+                /* 新建token 存储 userid 和 corpid */
                 String Authorization = JWTUtils.createToken(corpid+","+userid);
 
                 String userTicket = jsonObj.getString("user_ticket");

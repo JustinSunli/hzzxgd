@@ -162,23 +162,23 @@ public class MemberInformationServiceImpl extends ServiceImpl<MemberInformationM
     /**
      * 设置管理员身份
      * @param corpid
-     * @param openUserid
+     * @param userid
      */
     @Override
     @Transactional
-    public void assginToAdmin(String corpid, String openUserid) {
-        memberInformationMapper.assginToAdmin(corpid,openUserid);
+    public void assginToAdmin(String corpid, String userid) {
+        memberInformationMapper.assginToAdmin(corpid,userid);
     }
 
     /**
      * 取消管理员身份
      * @param corpid
-     * @param openUserid
+     * @param userid
      */
     @Override
     @Transactional
-    public void unassignFromAdmin(String corpid, String openUserid) {
-        memberInformationMapper.unassignFromAdmin(corpid,openUserid);
+    public void unassignFromAdmin(String corpid, String userid) {
+        memberInformationMapper.unassignFromAdmin(corpid,userid);
     }
 
 

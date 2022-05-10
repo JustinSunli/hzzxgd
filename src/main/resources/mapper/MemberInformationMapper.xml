@@ -48,13 +48,13 @@
     <update id="assginToAdmin" parameterType="java.lang.String">
       update member_information
       set is_admin='1'
-      where corpid=#{corpid} and open_userid=#{openUserid}
+      where corpid=#{corpid} and id=#{userid}
     </update>
 
     <update id="unassignFromAdmin" parameterType="java.lang.String">
       update member_information
       set is_admin='0'
-      where corpid=#{corpid} and open_userid=#{openUserid}
+      where corpid=#{corpid} and id=#{userid}
     </update>
 
     <select id="getMembersLimit" resultMap="memberInformation">

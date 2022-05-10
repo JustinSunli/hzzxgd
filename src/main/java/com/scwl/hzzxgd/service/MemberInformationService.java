@@ -34,16 +34,16 @@ public interface MemberInformationService {
     /**
      * 设置管理员身份
      * @param corpid
-     * @param openUserid
+     * @param userid
      */
-    void assginToAdmin(String corpid, String openUserid);
+    void assginToAdmin(String corpid, String userid);
 
     /**
      * 取消管理员身份
      * @param corpid
-     * @param openUserid
+     * @param userid
      */
-    void unassignFromAdmin(String corpid, String openUserid);
+    void unassignFromAdmin(String corpid, String userid);
 
     /**
      * 根据部门id获取成员  默认跟部门(部门id=1)

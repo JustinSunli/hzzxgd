@@ -34,7 +34,7 @@ public class InitializationInformationServiceImpl extends ServiceImpl<Initializa
     public List<InitializationInformationEntity> initialization(String corpid,String openUserid) {
         MemberInformationEntity memberInformationEntity =
                 memberInformationService.getOne(new QueryWrapper<MemberInformationEntity>().lambda()
-                        .eq(MemberInformationEntity::getOpenUserid, openUserid)
+                        .eq(MemberInformationEntity::getId, openUserid)
                         .eq(MemberInformationEntity::getCorpid,corpid));
         String role = memberInformationEntity.getIsAdmin();
         List<InitializationInformationEntity> entityList = new ArrayList<>();
@@ -51,7 +51,7 @@ public class InitializationInformationServiceImpl extends ServiceImpl<Initializa
                     .eq(InitializationInformationEntity::getIsActive, "1"));
             InitializationInformationEntity initializationInformationEntity = new InitializationInformationEntity();
             initializationInformationEntity.setMenuUrl(entity.getMenuUrl())
-                    .setMenuName(entity.getMenuName()).setIcon(entity.getIcon()).setTip(entity.getTip())
+                    .setMenuName(entity.getMenuName()).setIcon(entity.getIcon())
                     .setChildren(entities);
             entityList.add(initializationInformationEntity);
         }

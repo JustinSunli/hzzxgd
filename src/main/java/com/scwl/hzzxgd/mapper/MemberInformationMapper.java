@@ -26,16 +26,16 @@ public interface MemberInformationMapper extends BaseMapper<MemberInformationEnt
     /**
      * 设置管理员身份
      * @param corpid
-     * @param openUserid
+     * @param userid
      */
-    void assginToAdmin(@Param("corpid") String corpid,@Param("openUserid") String openUserid);
+    void assginToAdmin(@Param("corpid") String corpid,@Param("userid") String userid);
 
     /**
      * 取消管理员身份
      * @param corpid
-     * @param openUserid
+     * @param userid
      */
-    void unassignFromAdmin(@Param("corpid") String corpid,@Param("openUserid") String openUserid);
+    void unassignFromAdmin(@Param("corpid") String corpid,@Param("userid") String userid);
 
     /**
      * 根据部门id获取成员  默认跟部门(部门id=1)

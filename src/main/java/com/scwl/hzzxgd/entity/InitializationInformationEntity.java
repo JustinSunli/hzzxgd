@@ -44,10 +44,6 @@ public class InitializationInformationEntity implements Serializable {
      */
     private Boolean isSingle;
     /**
-     *路由新建
-     */
-    private String tip;
-    /**
      * 角色 1管理员 2普通
      */
     private String role;

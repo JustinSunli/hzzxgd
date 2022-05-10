@@ -59,9 +59,9 @@ public class OssUploadServiceImpl implements OssUploadService {
                     String path;
                     if (fileName.endsWith(".jpg") || fileName.endsWith(".jpeg") || fileName.endsWith(".png")) {
                         // images
-                        path = filePath + "images/" + datePath + "/" + fileName;
+                        path = filePath + "Images/" + datePath + "/" + fileName;
                     } else {
-                        path = filePath + "other/" + datePath + "/" + fileName;
+                        path = filePath + "Other/" + datePath + "/" + fileName;
                     }
                     // 上传到OSS
                     String uploadUrl = aliyunOSSUtil.upLoad(newFile, path);

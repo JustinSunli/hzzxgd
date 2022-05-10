@@ -23,8 +23,8 @@ public class MemberInformationController {
     public SandResponse assginToAdmin(@RequestHeader String Authorization){
         String str = JWTUtils.validateToken(Authorization);
         String corpid = JWTUtils.getCorpid(str);
-        String openUserid = JWTUtils.getUserid(str);
-        memberInformationService.assginToAdmin(corpid,openUserid);
+        String userid = JWTUtils.getUserid(str);
+        memberInformationService.assginToAdmin(corpid,userid);
         return SandResponse.ok();
     }
 
@@ -37,8 +37,8 @@ public class MemberInformationController {
     public SandResponse unassignFromAdmin(@RequestHeader String Authorization){
         String str = JWTUtils.validateToken(Authorization);
         String corpid = JWTUtils.getCorpid(str);
-        String openUserid = JWTUtils.getUserid(str);
-        memberInformationService.unassignFromAdmin(corpid,openUserid);
+        String userid = JWTUtils.getUserid(str);
+        memberInformationService.unassignFromAdmin(corpid,userid);
         return SandResponse.ok();
     }
 }

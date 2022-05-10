@@ -68,7 +68,6 @@ class HzzxgdApplicationTests {
                 .setMenuName("aaaaaaaaaaaaa")
                 .setIcon(null)
                 .setIsSingle(null)
-                .setTip(null)
                 .setRole("2")
                 .setIsActive("1")
                 .setCreateTime(new Date());
@@ -92,7 +91,7 @@ class HzzxgdApplicationTests {
                     .eq(InitializationInformationEntity::getIsActive, "1"));
             InitializationInformationEntity initializationInformationEntity = new InitializationInformationEntity();
             initializationInformationEntity.setMenuUrl(entity.getMenuUrl())
-                    .setMenuName(entity.getMenuName()).setIcon(entity.getIcon()).setTip(entity.getTip())
+                    .setMenuName(entity.getMenuName()).setIcon(entity.getIcon())
                     .setChildren(entities);
             entityList.add(initializationInformationEntity);
         }
