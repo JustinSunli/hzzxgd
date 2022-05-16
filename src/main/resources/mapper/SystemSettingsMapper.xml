@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.scwl.hzzxgd.mapper.SystemSettingsMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.scwl.hzzxgd.entity.SystemSettingsEntity" id="systemSettings">
+        <result property="id" column="id"/>
+        <result property="corpid" column="corpid"/>
+        <result property="activatedBy" column="activated_by"/>
+        <result property="activatedTime" column="activated_time"/>
+        <result property="deactivatedBy" column="deactivated_by"/>
+        <result property="deactivatedTime" column="deactivated_time"/>
+        <result property="serviceStartTime" column="service_start_time"/>
+        <result property="serviceEndTime" column="service_end_time"/>
+        <result property="isFbDispatchQtyLimited" column="is_fb_dispatch_qty_limited"/>
+        <result property="isFbDownstreamQtyLimited" column="is_fb_downstream_qty_limited"/>
+        <result property="isActive" column="is_active"/>
+        <result property="createId" column="create_id"/>
+        <result property="createTime" column="create_time"/>
+        <result property="modificationTime" column="modification_time"/>
+        <result property="modificationId" column="modification_id"/>
+    </resultMap>
+
+    <sql id="systemSettingsList">
+      id, corpid, activated_by, activated_time, deactivated_by, deactivated_time, service_start_time, service_end_time, is_fb_dispatch_qty_limited, is_fb_downstream_qty_limited
+       create_id, create_time, modification_time, modification_id,is_active
+    </sql>
+
+
+
+</mapper>

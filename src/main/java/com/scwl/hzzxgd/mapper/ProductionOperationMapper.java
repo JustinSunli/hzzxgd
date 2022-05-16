@@ -18,4 +18,21 @@ public interface ProductionOperationMapper extends BaseMapper<ProductionOperatio
      * @return
      */
     List<ProductionOperationEntity> selectByOrderId(@Param("id") String id);
+
+    /**
+     * 根据id查询工序
+     * @param operationId
+     * @return
+     */
+    List<ProductionOperationEntity> selectByOperationId(@Param("operationId") String operationId);
+
+    /**
+     * 报工单删除 回滚工序数据
+     * @param operationId
+     * @param feedbackQty
+     * @param goodQty
+     * @param badQty
+     * @param rejectedQty
+     */
+    void operationRollBack(@Param("operationId") String operationId,@Param("feedbackQty") float feedbackQty,@Param("goodQty") float goodQty,@Param("badQty") float badQty,@Param("rejectedQty") float rejectedQty);
 }

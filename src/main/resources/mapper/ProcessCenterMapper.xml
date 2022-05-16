@@ -27,4 +27,11 @@
         limit #{startIndex},#{pageSize}
     </select>
 
+    <select id="selectIdByCenterName" parameterType="java.lang.String">
+        select
+        id
+        from process_center
+        where name = #{workCenterName} and corpid = #{corpid}
+    </select>
+
 </mapper>

@@ -50,7 +50,7 @@ public class WeChatUtils {
     public final static String THIRD_BUS_WECHAT_GET_CORP_TOKEN = "https://qyapi.weixin.qq.com/cgi-bin/service/get_corp_token?suite_access_token=";
 
     // 发送应用消息
-    public final static String THIRD_BUS_WECHAT_SEND = "https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token=ACCESS_TOKEN";
+    public final static String THIRD_BUS_WECHAT_SEND = "https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token=";
 
     // 获取应用的jsapi_ticket
     public final static String THIRD_BUS_GET_JSAPI_TICKET = "https://qyapi.weixin.qq.com/cgi-bin/ticket/get?access_token=";

@@ -1,5 +1,6 @@
 package com.scwl.hzzxgd;
 
+import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.scwl.hzzxgd.entity.InitializationInformationEntity;
 import com.scwl.hzzxgd.mapper.InitializationInformationMapper;
@@ -7,6 +8,16 @@ import com.scwl.hzzxgd.service.impl.InitializationInformationServiceImpl;
 import com.scwl.hzzxgd.utils.HttpHelper;
 import com.scwl.hzzxgd.utils.JWTUtils;
 import com.scwl.hzzxgd.utils.WeChatUtils;
+import com.scwl.hzzxgd.vo.SandAppMessageVo;
+import com.scwl.hzzxgd.vo.TextContentVo;
+import org.apache.http.HttpEntity;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
@@ -33,8 +44,8 @@ class HzzxgdApplicationTests {
     void contextLoads() {
 //        redisTemplate.opsForValue().set("suitAccessToken","2JDXPqlW",2, TimeUnit.MINUTES);
 //        System.out.println("ok");
-        String accessToken =redisTemplate.opsForValue().get("ww53c8160388d016ee"+"permanentCode");
-        System.out.println(accessToken);
+//        String accessToken =redisTemplate.opsForValue().get("ww53c8160388d016ee"+"accessToken");
+//        System.out.println(accessToken);
 //        String suiteAccessToken = redisTemplate.opsForValue().get("suiteAccessToken");
 //        System.out.println(suiteAccessToken);
 //        String providerAccessToken = redisTemplate.opsForValue().get("provider_access_token");
@@ -129,7 +140,35 @@ class HzzxgdApplicationTests {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
+
+    @Test
+    void  test01() {
+        String url = "https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token=027kntL4lWYgDsSjgT_0mu38AGlnqgm7kwy1CdfSuH5_M3aUeB8bDNzJRgyOGWS3VQQTIalfEUO-E9UmeosZTQPjaLdl3AJis5HL-kdz7z9haNQt4l2dFkmxZlcwhImhaKFh-l0kqjqAg2MduTSjfpo_LrDpqcRtJYTuITq_GcgNOoVZoDWJWz52V1xaHqi7wqcvB3k3FHL__lBt_0Xg5A";
+        // 赋值代码略
+        SandAppMessageVo sandAppMessageVo = new SandAppMessageVo();
+        TextContentVo textContentVo = new TextContentVo();
+
+        String msg = JSON.toJSONString(sandAppMessageVo);
+        HttpPost httpPost = new HttpPost(url);
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+        StringEntity entity = new StringEntity(msg, "utf-8");//解决中文乱码问题
+        entity.setContentEncoding("UTF-8");
+        entity.setContentType("text/json");
+        httpPost.setEntity(entity);
+        try {
+            CloseableHttpResponse httpResponse = httpClient.execute(httpPost);
+            HttpEntity entity1 = httpResponse.getEntity();
+            String content= EntityUtils.toString(entity1,"utf8");
+            System.out.println(content);
+        } catch (ClientProtocolException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
 
 }

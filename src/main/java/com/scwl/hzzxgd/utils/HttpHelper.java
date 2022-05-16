@@ -1,6 +1,9 @@
 package com.scwl.hzzxgd.utils;
 
+import com.alibaba.fastjson.JSON;
+import com.scwl.hzzxgd.vo.SandAppMessageVo;
 import org.apache.http.HttpEntity;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
@@ -73,6 +76,32 @@ public class HttpHelper {
         //释放链接
         response.close();
 
+        return jsonObj;
+    }
+
+    public static JSONObject sandMessage(String url, SandAppMessageVo messageVo) throws JSONException {
+        System.out.println("doPost请求url："+url);
+        System.out.println("doPost请求Parm："+messageVo);
+
+        String msg = JSON.toJSONString(messageVo);
+        HttpPost httpPost = new HttpPost(url);
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+        StringEntity entity = new StringEntity(msg, "utf-8");//解决中文乱码问题
+        entity.setContentEncoding("UTF-8");
+        entity.setContentType("text/json");
+        httpPost.setEntity(entity);
+        JSONObject jsonObj = null;
+        try {
+            CloseableHttpResponse httpResponse = httpClient.execute(httpPost);
+            HttpEntity entity1 = httpResponse.getEntity();
+            String content= EntityUtils.toString(entity1,"utf8");
+            System.out.println("sandMessage："+ content);
+            jsonObj = new JSONObject(content);
+        } catch (ClientProtocolException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return jsonObj;
     }
 }

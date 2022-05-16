@@ -89,4 +89,34 @@ public class ProductionOrderController {
         return SandResponse.ok();
     }
 
+    /**
+     * 开工(工单状态待开工改为进行中)
+     * @param Authorization
+     * @param ids
+     * @return
+     */
+    @PostMapping("/start")
+    public SandResponse start(@RequestHeader String Authorization,@RequestBody String[] ids){
+        String str = JWTUtils.validateToken(Authorization);
+        String corpid = JWTUtils.getCorpid(str);
+        String userid = JWTUtils.getUserid(str);
+        productionOrderService.start(ids,corpid,userid);
+        return SandResponse.ok();
+    }
+
+    /**
+     * 手工关闭(工单状态进行中改为手工关闭)
+     * @param Authorization
+     * @param ids
+     * @return
+     */
+    @PostMapping("/close")
+    public SandResponse close(@RequestHeader String Authorization,@RequestBody String[] ids){
+        String str = JWTUtils.validateToken(Authorization);
+        String corpid = JWTUtils.getCorpid(str);
+        String userid = JWTUtils.getUserid(str);
+        productionOrderService.close(ids,corpid,userid);
+        return SandResponse.ok();
+    }
+
 }

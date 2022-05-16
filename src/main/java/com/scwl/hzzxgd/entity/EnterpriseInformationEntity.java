@@ -96,6 +96,10 @@ public class EnterpriseInformationEntity implements Serializable {
      */
     private String permanentCode;
     /**
+     * 授权方应用id
+     */
+    private Integer agentid;
+    /**
      * 创建时间
      */
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")

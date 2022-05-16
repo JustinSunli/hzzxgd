@@ -20,4 +20,10 @@ public interface ProcessCenterMapper extends BaseMapper<ProcessCenterEntity> {
      * @return
      */
     List<ProcessCenterEntity> getList(@Param("corpid") String corpid, @Param("startIndex") int startIndex, @Param("pageSize") int pageSize);
+
+    /**
+     * 通过工序中心名称查询id
+     * @param workCenterName
+     */
+    String selectIdByCenterName(@Param("corpid") String corpid, @Param("workCenterName") String workCenterName);
 }

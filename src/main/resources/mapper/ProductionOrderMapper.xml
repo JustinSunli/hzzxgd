@@ -45,6 +45,18 @@
         limit #{startIndex},#{pageSize}
     </select>
 
+    <update id="start">
+        update production_order
+        set production_status = '1',modification_id = #{userid},modification_time = #{date}
+        where id = #{id}
+    </update>
+
+    <update id="close">
+        update production_order
+        set production_status = '3',modification_id = #{userid},modification_time = #{date}
+        where id = #{id}
+    </update>
+
 
 
 </mapper>

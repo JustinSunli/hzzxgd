@@ -7,6 +7,7 @@ import com.scwl.hzzxgd.entity.ProductUnitEntity;
 import com.scwl.hzzxgd.excel.ExcelUtils;
 import com.scwl.hzzxgd.mapper.ProductDetailsMapper;
 import com.scwl.hzzxgd.mapper.ProductUnitMapper;
+import com.scwl.hzzxgd.service.ProcessRouteMainService;
 import com.scwl.hzzxgd.service.ProductDetailsService;
 import com.scwl.hzzxgd.utils.PageHelper;
 import com.scwl.hzzxgd.utils.PubUtil;
@@ -17,7 +18,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 
 /**
  * 产品资料表
@@ -29,6 +33,8 @@ public class ProductDetailsImpl extends ServiceImpl<ProductDetailsMapper, Produc
     private ProductDetailsMapper productDetailsMapper;
     @Resource
     private ProductUnitMapper productUnitMapper;
+    @Resource
+    private ProcessRouteMainServiceImpl processRouteMainService;
     /**
      * 获取产品列表 分页
      * @param corpid
@@ -73,9 +79,14 @@ public class ProductDetailsImpl extends ServiceImpl<ProductDetailsMapper, Produc
     @Override
     @Transactional
     public void create(String corpid, String openUserid, ProductDetailsEntity entity) {
-        entity.setCorpid(corpid).setCreateId(openUserid).setCreateTime(new Date()).setModificationId(openUserid).setModificationTime(new Date());
+        String attachmentId = entity.getAttachment();
+        String attachment = processRouteMainService.ossUpload(attachmentId);
+        String pictureId = entity.getPicture();
+        String picture = processRouteMainService.ossUpload(pictureId);
+        entity.setAttachment(attachment).setPicture(picture).setCorpid(corpid).setCreateId(openUserid).setCreateTime(new Date()).setModificationId(openUserid).setModificationTime(new Date());
         this.save(entity);
     }
+
 
     /**
      * 修改产品

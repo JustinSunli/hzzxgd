@@ -44,14 +44,20 @@ public class DepartmentListInformationServiceImpl extends ServiceImpl<Department
                     for (int i=0 ; i< department.length(); i++) {
                         JSONObject jsonObject = department.getJSONObject(i);
                         Integer departmentListId = jsonObject.getInt("id");
-                        String url = WeChatUtils.THIRD_BUS_WECHAT_DEPART_DETAIL + redisTemplate.opsForValue().get(corpid + "accessToken") + "&id=" + departmentListId;
-                        JSONObject jsonObj2 = HttpHelper.doGet(url);
-                        Integer parentid = jsonObj2.getJSONObject("department").getInt("parentid");
-                        Integer departmentOrder = jsonObj2.getJSONObject("department").getInt("order");
-                        String name = jsonObj2.getJSONObject("department").getString("name");
-                        JSONArray departmentLeaderObject = jsonObj2.getJSONObject("department").getJSONArray("department_leader");
+                        Integer parentid = jsonObject.getInt("parentid");
+                        Integer departmentOrder = jsonObject.getInt("order");
+                        String name = jsonObject.getString("name");
+                        JSONArray departmentLeaderObject = jsonObject.getJSONArray("department_leader");
                         String departmentLeaderstr = "";
                         String departmentLeader = null;
+//                        String url = WeChatUtils.THIRD_BUS_WECHAT_DEPART_DETAIL + redisTemplate.opsForValue().get(corpid + "accessToken") + "&id=" + departmentListId;
+//                        JSONObject jsonObj2 = HttpHelper.doGet(url);
+//                        Integer parentid = jsonObj2.getJSONObject("department").getInt("parentid");
+//                        Integer departmentOrder = jsonObj2.getJSONObject("department").getInt("order");
+//                        String name = jsonObj2.getJSONObject("department").getString("name");
+//                        JSONArray departmentLeaderObject = jsonObj2.getJSONObject("department").getJSONArray("department_leader");
+//                        String departmentLeaderstr = "";
+//                        String departmentLeader = null;
                         if (PubUtil.isNotEmpty(departmentLeaderObject)) {
                             for (int j = 0; j < departmentLeaderObject.length(); j++) {
                                 departmentLeaderstr += (departmentLeaderObject.get(i)+",");

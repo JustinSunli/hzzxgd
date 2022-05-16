@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.scwl.hzzxgd.mapper.WorkReportOrderMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.scwl.hzzxgd.entity.WorkReportOrderEntity" id="workReportOrder">
+        <result property="id" column="id"/>
+        <result property="corpid" column="corpid"/>
+        <result property="seqNo" column="seq_no"/>
+        <result property="operationId" column="operation_id"/>
+        <result property="feedbackQty" column="feedback_qty"/>
+        <result property="operatorId" column="operator_id"/>
+        <result property="remark" column="remark"/>
+        <result property="wage" column="wage"/>
+        <result property="standardHours" column="standard_hours"/>
+        <result property="actHours" column="act_hours"/>
+        <result property="goodQty" column="good_qty"/>
+        <result property="badQty" column="bad_qty"/>
+        <result property="rejectedQty" column="rejected_qty"/>
+        <result property="salaryMethod" column="salary_method"/>
+        <result property="isChecked" column="is_checked"/>
+        <result property="createId" column="create_id"/>
+        <result property="createTime" column="create_time"/>
+        <result property="modificationTime" column="modification_time"/>
+        <result property="modificationId" column="modification_id"/>
+        <result property="isActive" column="is_active"/>
+    </resultMap>
+
+    <sql id="workReportOrderList">
+      id, corpid, seq_no, operation_id, feedback_qty, operator_id, remark, wage, standard_hours, act_hours, good_qty, bad_qty, rejected_qty, salary_method, is_checked,
+       create_id, create_time, modification_time, modification_id,is_active
+    </sql>
+
+    <select id="getList" resultMap="workReportOrder">
+        select
+        w.id,
+        w.corpid,
+        w.seq_no,
+        w.operation_id,
+        w.feedback_qty,
+        w.operator_id,
+        w.remark,
+        w.wage,
+        w.standard_hours,
+        w.act_hours,
+        w.good_qty,
+        w.bad_qty,
+        w.rejected_qty,
+        w.salary_method,
+        w.is_checked,
+        w.create_id,
+        w.create_time,
+        w.modification_time,
+        w.modification_id,
+        w.is_active,
+        m.name as operatorName
+        from work_report_order w
+        left join production_operation o on w.operation_id = o.id
+        left join production_order er on o.production_order_id = er.id
+        left join member_information m on w.operator_id = m.id
+        where w.corpid = #{corpid} and w.operator_id = #{userid} and w.is_active = '1'
+        <if test="seqNo != null and seqNo != ''">
+            and w.seq_no like concat('%',#{seqNo},'%')
+        </if>
+        <if test="productionOrderSeqNo != null and productionOrderSeqNo != ''">
+            and er.id like concat('%',#{productionOrderSeqNo},'%')
+        </if>
+        <if test="centerId != null and centerId != ''">
+            and o.work_center_id like concat('%',#{centerId},'%')
+        </if>
+        <if test="memberId != null and memberId != ''">
+            and w.operator_id like concat('%',#{memberId},'%')
+        </if>
+        <if test="isCheck != null and isCheck != ''">
+            and w.is_checked like concat('%',#{isCheck},'%')
+        </if>
+        <if test="productCode != null and productCode != ''">
+            and er.product_code like concat('%',#{productCode},'%')
+        </if>
+        <if test="productName != null and productName != ''">
+            and er.product_name like concat('%',#{productName},'%')
+        </if>
+        limit #{startIndex},#{pageSize}
+    </select>
+
+    <select id="getByid" resultMap="workReportOrder">
+        select
+        w.id,
+        w.corpid,
+        w.seq_no,
+        w.operation_id,
+        w.feedback_qty,
+        w.operator_id,
+        w.remark,
+        w.wage,
+        w.standard_hours,
+        w.act_hours,
+        w.good_qty,
+        w.bad_qty,
+        w.rejected_qty,
+        w.salary_method,
+        w.is_checked,
+        w.create_id,
+        w.create_time,
+        w.modification_time,
+        w.modification_id,
+        w.is_active,
+        m.name as operatorName
+        from work_report_order w
+        left join member_information m on w.operator_id = m.id
+        where w.id = #{id}
+    </select>
+
+</mapper>

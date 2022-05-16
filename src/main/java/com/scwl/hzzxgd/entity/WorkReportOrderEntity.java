@@ -13,13 +13,13 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-/**
- * 工序明细
- */
 @Data
 @Accessors(chain = true)
-@TableName("production_operation")
-public class ProductionOperationEntity implements Serializable {
+@TableName("work_report_order")
+/**
+ * 报工
+ */
+public class WorkReportOrderEntity implements Serializable {
     private static final long serialVersionUID = 1L;
     /**
      * id
@@ -31,31 +31,27 @@ public class ProductionOperationEntity implements Serializable {
      */
     private String corpid;
     /**
-     * 关联工单id
+     * 报工流水号
      */
-    private String productionOrderId;
+    private String seqNo;
     /**
-     * 派工数量(默认 = 工单的派工数量)
+     * 关联工序id
      */
-    private float dispatchQty;
+    private String operationId;
     /**
-     * 工序顺序
+     * 报工数量
      */
-    private int sequenceNo;
+    private float feedbackQty;
     /**
-     * 工序中心id
+     * 操作员id
      */
-    private String workCenterId;
+    private String operatorId;
     /**
-     * 制造方
+     * 备注
      */
-    private int maker;
+    private String remark;
     /**
-     * 计薪方式
-     */
-    private int salaryMethod;
-    /**
-     * 工资
+     * 计价工资
      */
     private float wage;
     /**
@@ -63,29 +59,13 @@ public class ProductionOperationEntity implements Serializable {
      */
     private float standardHours;
     /**
-     * 备注
+     * 实际工时
      */
-    private String remark;
-    /**
-     * 损耗率
-     */
-    private float lossRate;
-    /**
-     * 工单状态(0待开工 1进行中 2已取消 3手工关闭 4 已完工)
-     */
-    private String operationStatus;
-    /**
-     * 该工序要求完成数量,默认=工单dispatch_qty =(1+lossrate)*qty
-     */
-    private float requireQty;
+    private float actHours;
     /**
      * 良品数量
      */
     private float goodQty;
-    /**
-     * 报工数量
-     */
-    private float feedbackQty;
     /**
      * 不良数量
      */
@@ -95,9 +75,17 @@ public class ProductionOperationEntity implements Serializable {
      */
     private float rejectedQty;
     /**
-     * 工序库存数量
+     * 计薪方式
      */
-    private float tempStockQty;
+    private int salaryMethod;
+    /**
+     * 工资合计
+     */
+    private float salaryAmount;
+    /**
+     * 是否已检验
+     */
+    private Boolean isChecked;
     /**
      * 创建人
      */
@@ -123,13 +111,18 @@ public class ProductionOperationEntity implements Serializable {
      */
     private String isActive;
     /**
-     * 派工明细
+     * 操作员名称
      */
     @TableField(exist = false)
-    private List<OperationAssignmentsEntity> assignments;
+    private String operatorName;
     /**
-     * 工序中心名称
+     * 工单工序
      */
     @TableField(exist = false)
-    private String workCenterName;
+    private List<ProductionOperationEntity> operation;
+    /**
+     * 工单
+     */
+    @TableField(exist = false)
+    private ProductionOrderEntity product;
 }

@@ -16,6 +16,14 @@
         <result property="wage" column="wage"/>
         <result property="standardHours" column="standard_hours"/>
         <result property="remark" column="remark"/>
+        <result property="lossRate" column="loss_rate"/>
+        <result property="operationStatus" column="operation_status"/>
+        <result property="requireQty" column="require_qty"/>
+        <result property="goodQty" column="good_qty"/>
+        <result property="feedbackQty" column="feedback_qty"/>
+        <result property="badQty" column="bad_qty"/>
+        <result property="rejectedQty" column="rejected_qty"/>
+        <result property="tempStockQty" column="temp_stock_qty"/>
         <result property="createId" column="create_id"/>
         <result property="createTime" column="create_time"/>
         <result property="modificationTime" column="modification_time"/>
@@ -24,7 +32,8 @@
     </resultMap>
 
     <sql id="productionOperationList">
-      id, corpid, production_order_id, dispatch_qty, sequence_no,work_center_id, maker ,salary_method, wage,standard_hours, remark, create_id,create_time, modification_time, modification_id,is_active
+      id, corpid, production_order_id, dispatch_qty, sequence_no,work_center_id, maker ,salary_method, wage,standard_hours, remark, loss_rate, operation_status, require_qty
+      , finished_qty, feedback_qty, bad_qty, rejected_qty, temp_stock_qty, create_id,create_time, modification_time, modification_id,is_active
     </sql>
 
     <select id="selectByOrderId" resultMap="productionOperation">
@@ -40,16 +49,64 @@
       o.wage,
       o.standard_hours,
       o.remark,
+      o.good_qty,
+      o.require_qty,
+      o.loss_rate,
+      o.operation_status,
+      o.feedback_qty,
+      o.bad_qty,
+      o.rejected_qty,
+      o.temp_stock_qty,
       o.create_id,
-      o.create_time,
       o.modification_time,
+      o.create_time,
       o.modification_id,
       o.is_active,
       c.name as workCenterName
       from production_operation o
       left join process_center c
-      on o.work_center_id = c.id
+      on o.work_center_id = c.idselectByOrderId
       where o.production_order_id = #{id}
     </select>
+
+    <select id="selectByOperationId" resultMap="productionOperation">
+        select
+        o.id,
+        o.corpid,
+        o.production_order_id,
+        o.dispatch_qty,
+        o.sequence_no,
+        o.work_center_id,
+        o.maker,
+        o.salary_method,
+        o.wage,
+        o.standard_hours,
+        o.remark,
+        o.good_qty,
+        o.require_qty,
+        o.loss_rate,
+        o.operation_status,
+        o.feedback_qty,
+        o.bad_qty,
+        o.rejected_qty,
+        o.temp_stock_qty,
+        o.create_id,
+        o.modification_time,
+        o.create_time,
+        o.modification_id,
+        o.is_active,
+        c.name as workCenterName
+        from production_operation o
+        left join process_center c
+        on o.work_center_id = c.id
+        where o.id = #{operationId}
+    </select>
+
+    <update id="operationRollBack">
+        update
+        production_operation
+        set feedback_qty = (feedback_qty - #{feedbackQty}), good_qty = (good_qty - #{goodQty}), bad_qty = (bad_qty - #{badQty}), rejected_qty = (rejected_qty - #{rejectedQty})
+        where id = #{operationId}
+    </update>
 
 </mapper>

@@ -5,6 +5,7 @@ import com.scwl.hzzxgd.entity.EnterpriseInformationEntity;
 import com.scwl.hzzxgd.mapper.EnterpriseInformationMapper;
 import com.scwl.hzzxgd.service.EnterpriseInformationService;
 import com.scwl.hzzxgd.utils.PubUtil;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
@@ -30,15 +31,15 @@ public class EnterpriseInformationServiceImpl extends ServiceImpl<EnterpriseInfo
             String corpid = jsonObj.getJSONObject("auth_corp_info").getString("corpid");
             String corpType = jsonObj.getJSONObject("auth_corp_info").getString("corp_type");
             String corpName = jsonObj.getJSONObject("auth_corp_info").getString("corp_name");
-            String corpFullName = jsonObj.getJSONObject("auth_corp_info").getString("corp_full_name");
+//            String corpFullName = jsonObj.getJSONObject("auth_corp_info").getString("corp_full_name");
             Integer subjectType = jsonObj.getJSONObject("auth_corp_info").getInt("subject_type");
             String corpSubIndustry = jsonObj.getJSONObject("auth_corp_info").getString("corp_sub_industry");
             String corpScale = jsonObj.getJSONObject("auth_corp_info").getString("corp_scale");
             Integer corpUserMax = jsonObj.getJSONObject("auth_corp_info").getInt("corp_user_max");
-            Long time = jsonObj.getJSONObject("auth_corp_info").getLong("verified_end_time");
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            String format = sdf.format(time);
-            Date verifiedEndTime = sdf.parse(format);
+//            Long time = jsonObj.getJSONObject("auth_corp_info").getLong("verified_end_time");
+//            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//            String format = sdf.format(time);
+//            Date verifiedEndTime = sdf.parse(format);
             String corpWxqrcode = jsonObj.getJSONObject("auth_corp_info").getString("corp_wxqrcode");
             String corpSquareLogoUrl = jsonObj.getJSONObject("auth_corp_info").getString("corp_square_logo_url");
             String corpRoundLogoUrl = jsonObj.getJSONObject("auth_corp_info").getString("corp_round_logo_url");
@@ -49,16 +50,21 @@ public class EnterpriseInformationServiceImpl extends ServiceImpl<EnterpriseInfo
             String avatar = jsonObj.getJSONObject("auth_user_info").getString("avatar");
             String openUserid = jsonObj.getJSONObject("auth_user_info").getString("open_userid");
             String permanentCode = jsonObj.getString("permanent_code");
+            JSONArray jsonArray = jsonObj.getJSONObject("auth_info").getJSONArray("agent");
+            Integer agentid = null;
+            if (PubUtil.isNotEmpty(jsonArray)){
+                agentid = jsonArray.getJSONObject(0).getInt("agentid");
+            }
             EnterpriseInformationEntity enterpriseInformationEntity = new EnterpriseInformationEntity();
             enterpriseInformationEntity.setCorpid(corpid)
                     .setCorpType(corpType)
                     .setCorpName(corpName)
-                    .setCorpFullName(corpFullName)
+                    .setCorpFullName(null)
                     .setSubjectType(subjectType)
                     .setCorpSubIndustry(corpSubIndustry)
                     .setCorpScale(corpScale)
                     .setCorpUserMax(corpUserMax)
-                    .setVerifiedEndTime(verifiedEndTime)
+                    .setVerifiedEndTime(null)
                     .setCorpWxqrcode(corpWxqrcode)
                     .setCorpSquareLogoUrl(corpSquareLogoUrl)
                     .setCorpRoundLogoUrl(corpRoundLogoUrl)
@@ -70,7 +76,8 @@ public class EnterpriseInformationServiceImpl extends ServiceImpl<EnterpriseInfo
                     .setOpenUserid(openUserid)
                     .setPermanentCode(permanentCode)
                     .setCreateTime(new Date())
-                    .setIsActive("1");
+                    .setIsActive("1")
+                    .setAgentid(agentid);
 //          企业信息是否存在  不存在新增  存在修改
             // EnterpriseInformationEntity entity = this.baseMapper.selectByCorpid(corpid);
             EnterpriseInformationEntity entity = this.getOne(new QueryWrapper<EnterpriseInformationEntity>().lambda()

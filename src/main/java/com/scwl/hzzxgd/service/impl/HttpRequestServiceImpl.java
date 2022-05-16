@@ -316,20 +316,22 @@ public class HttpRequestServiceImpl implements HttpRequestService {
     @Override
     @Transactional
     public String getAccessToken(String corpid) {
-        String accessToken = null;
-        try {
-            String url2 = WeChatUtils.THIRD_BUS_WECHAT_GET_CORP_TOKEN + redisTemplate.opsForValue().get("suiteAccessToken");
-            JSONObject jsonParams2 = new JSONObject();
-            jsonParams2.put("auth_corpid", corpid);
-            jsonParams2.put("permanent_code", redisTemplate.opsForValue().get(corpid+"permanentCode"));
-            JSONObject jsonObject = HttpHelper.doPost(url2, jsonParams2);
-            accessToken = jsonObject.getString("access_token");
-            Integer expiresIn = Integer.parseInt(jsonObject.getString("expires_in"));
-            redisTemplate.opsForValue().set(corpid + "accessToken", accessToken, expiresIn, TimeUnit.SECONDS);
-        }catch (JSONException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+        String accessToken = redisTemplate.opsForValue().get(corpid + "accessToken");
+        if (PubUtil.isEmpty(accessToken)){
+            try {
+                String url2 = WeChatUtils.THIRD_BUS_WECHAT_GET_CORP_TOKEN + redisTemplate.opsForValue().get("suiteAccessToken");
+                JSONObject jsonParams2 = new JSONObject();
+                jsonParams2.put("auth_corpid", corpid);
+                jsonParams2.put("permanent_code", redisTemplate.opsForValue().get(corpid+"permanentCode"));
+                JSONObject jsonObject = HttpHelper.doPost(url2, jsonParams2);
+                accessToken = jsonObject.getString("access_token");
+                Integer expiresIn = Integer.parseInt(jsonObject.getString("expires_in"));
+                redisTemplate.opsForValue().set(corpid + "accessToken", accessToken, expiresIn, TimeUnit.SECONDS);
+            }catch (JSONException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         return accessToken;
     }

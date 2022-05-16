@@ -140,7 +140,7 @@ public class ProcessRouteMainServiceImpl extends ServiceImpl<ProcessRouteMainMap
      * 文件上传oss 并删除本地文件和数据库
      * @param id
      */
-    private String ossUpload(String id) {
+    protected String ossUpload(String id) {
         if (PubUtil.isNotEmpty(id)) {
             LocalFileCacheEntity entity = localFileCacheMapper.selectById(id);
             String path = entity.getPath();
